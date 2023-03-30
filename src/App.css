@@ -29,7 +29,7 @@ p {
 }
 
 .button {
-  background-color: #4c1e62;
+  background-color: #2d1111;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -75,7 +75,7 @@ p {
 }
 
 .toggle-checkbox:checked + .toggle-label {
-  background-color: #4c1e62;
+  background-color: #2d1111;
 }
 
 .toggle-checkbox:checked + .toggle-label:before {
