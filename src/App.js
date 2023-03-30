@@ -1,46 +1,59 @@
 import './App.css';
-import words from './words.csv'
+import wordsCSV from './words.csv'
 import {useEffect, useState} from "react";
 
-function App() {
-  const [forbiddenWords, setForbiddenWords] = useState([]);
+// For dev: npm start
+// For publishing: npm run deploy
 
-  const [points, setPoints] = useState(0);
-  const incrementPoints = () => {
-    setPoints(points + 1);
-  };
+function App() {
+  const [words, setWords] = useState([]);
+  const [displayPoints, setDisplayPoints] = useState(0)
+  const [bluePoints, setBluePoints] = useState(0);
+  const [pinkPoints, setPinkPoints] = useState(0);
+  const [bgColor, setBgColor] = useState('#CF4D6F');
+  const [isBlueTurn, setIsBlueTurn] = useState(false);
+
 
   const fetchWords = async () => {
-    const response = await fetch(words);
+    const response = await fetch(wordsCSV);
     const text = await response.text();
     const lines = text.split('\n');
-    const lineToRead = Math.floor(Math.random() * 836);
-    const readWords = lines[lineToRead].split(',').slice(0, 6); // get first 5 words of first line
+    const lineToRead = Math.floor(Math.random() * lines.length);
+    const readWords = lines[lineToRead].split(',').slice(0, 6);
     upperEachWord(readWords);
-    setForbiddenWords(readWords);
+    setWords(readWords);
     return readWords;
   };
-
   function upperEachWord(arr) {
     for (let i = 0; i < arr.length; i++) {
       arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
     }
   }
 
-  const [bgColor, setBgColor] = useState('#4381C1');
+
+
+  const incrementPoints = () => {
+    isBlueTurn ? setBluePoints(bluePoints + 1) : setPinkPoints(pinkPoints + 1)
+  }
+  useEffect(() => {
+    setDisplayPoints(isBlueTurn ? bluePoints : pinkPoints)
+  }, [bluePoints, pinkPoints])
 
   const handleToggle = () => {
-    setBgColor(bgColor === '#4381C1' ? '#CF4D6F' : '#4381C1');
+    setIsBlueTurn(!isBlueTurn)
   };
-
-
   useEffect(() => {
-    fetchWords();
-  }, []);
+    setBgColor(isBlueTurn ? '#CF4D6F' : '#4381C1')
+    setDisplayPoints(isBlueTurn ? bluePoints : pinkPoints)
+  }, [isBlueTurn])
 
   const nextWord = () => {
     fetchWords();
   };
+
+  useEffect(() => {
+    fetchWords();
+  }, []);
 
 
   return (
@@ -50,19 +63,19 @@ function App() {
           <input type="checkbox" id="toggle" className="toggle-checkbox" onChange={handleToggle}/>
             <label htmlFor="toggle" className="toggle-label"></label>
         </div>
-        <h1>{forbiddenWords[0]}</h1>
-        <p>{forbiddenWords[1]}</p>
-        <p>{forbiddenWords[2]}</p>
-        <p>{forbiddenWords[3]}</p>
-        <p>{forbiddenWords[4]}</p>
-        <p>{forbiddenWords[5]}</p>
+        <h1>{words[0]}</h1>
+        <p>{words[1]}</p>
+        <p>{words[2]}</p>
+        <p>{words[3]}</p>
+        <p>{words[4]}</p>
+        <p>{words[5]}</p>
         <br></br>
         <button className="button" onClick={() => {
           incrementPoints()
           nextWord()
         }}>Correct</button>
         <button className="button" onClick={nextWord}>Skip</button>
-        <p>Points: {points}</p>
+        <p>Points: {displayPoints}</p>
       </header>
     </div>
   );
