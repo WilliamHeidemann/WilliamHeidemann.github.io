@@ -9,12 +9,12 @@
 
 h1 {
   margin: 1em 0;
-  font-size: 36px;
+  font-size: 4em;
 }
 
 p {
-  font-size: 24px;
   margin: 0.5em 0;
+  font-size: 2em;
 }
 
 .App-header {
@@ -36,10 +36,11 @@ p {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 18px;
+  font-size: 1.5em;
   margin: 4px 2px;
   cursor: pointer;
-  width: 120px;
+  width: 30%;
+  height: 100px;
 }
 
 .toggle-container {
@@ -53,9 +54,9 @@ p {
 
 .toggle-label {
   display: block;
-  width: 60px;
-  height: 34px;
-  border-radius: 34px;
+  width: 240px;
+  height: 132px;
+  border-radius: 146px;
   background-color: #ddd;
   position: relative;
   cursor: pointer;
@@ -67,9 +68,9 @@ p {
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 120px;
   background-color: white;
   transition: transform 0.2s ease;
 }
@@ -79,5 +80,5 @@ p {
 }
 
 .toggle-checkbox:checked + .toggle-label:before {
-  transform: translateX(26px);
+  transform: translateX(104px);
 }
