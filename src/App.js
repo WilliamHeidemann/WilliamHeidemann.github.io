@@ -2,6 +2,7 @@ import './App.css';
 import wordsCSV from './words.csv'
 import {useEffect, useState} from "react";
 
+// Before npm can run: cd .\taboo-app\
 // For dev: npm start
 // For publishing: npm run deploy
 
